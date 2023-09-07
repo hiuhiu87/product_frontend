@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <Link to={`/products`} className="mb-5 mt-2">
-      {" "}
-      <b style={{fontSize: '25px', textDecoration: 'none'}}>Product</b>
-      {" "}
+    <Link to={`/product_frontend`} className="mb-5 mt-2 display-6 text-dark" style={{textDecoration: "none"}}>
+      Product
     </Link>
   );
 };

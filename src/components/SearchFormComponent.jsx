@@ -4,6 +4,7 @@ import { useState } from "react";
 import service from "../service/ProductService";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+ 
 
 const SearchForm = () => {
   const [nameProduct, setNameProduct] = useState('');
@@ -33,12 +34,7 @@ const SearchForm = () => {
 
   const setToDefault = (e) => {
     e.preventDefault();
-    setNameProduct(null);
-    setPrice(null);
-    setBrandId(1);
-    setCateId(1);
-    setCateId(1);
-    navigation(`/products`);
+    navigation(`/product_frontend`);
     window.location.reload();
   };
 
@@ -56,7 +52,10 @@ const SearchForm = () => {
       .getListProductSearch(dataSearch)
       .then((response) => {
         console.log(response.data);
-        navigation(`/search-product/${JSON.stringify(response.data)}`);
+        const url = `/search-product/`;
+        const dataUrl = window.encodeURIComponent(`${JSON.stringify(response.data)}`);
+        const finalUrl = url + dataUrl;
+        navigation(finalUrl);
       })
       .catch((error) => {
         console.log(error);
