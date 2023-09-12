@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const PRODUCT_BASE_API_URL = "https://springbootdeploy-production.up.railway.app/api/v1";
-const PRODUCT_BASE_API_URL = "http://localhost:8080/api/v1";
+const PRODUCT_BASE_API_URL = "http://localhost:8081/api/v1";
 
 
 class ProductService {

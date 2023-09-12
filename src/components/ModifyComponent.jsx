@@ -89,6 +89,7 @@ const AddUpdateComponent = () => {
       description,
       statusId,
     };
+    console.log(product);
     if (id) {
       setIsLoading(true);
       service
@@ -105,12 +106,14 @@ const AddUpdateComponent = () => {
       service
         .createProduct(product)
         .then((response) => {
+          
           setIsLoading(true);
           showAlertSuccess("Thông Báo", response.data);
           setIsLoading(false);
           navigation("/product_frontend");
         })
         .catch((error) => {
+          
           showAlertWarning("Lỗi", "Không Thêm Được Sản Phẩm");
         });
     }
@@ -227,7 +230,7 @@ const AddUpdateComponent = () => {
                     placeholder="Enter Name"
                     name="productName"
                     className="form-control"
-                    value={productName}
+                    value={productName || ""}
                     onChange={(e) => setProductName(e.target.value)}
                   ></input>
                   <span className="text-danger fs-6">
@@ -242,7 +245,7 @@ const AddUpdateComponent = () => {
                     placeholder="Enter Color"
                     name="color"
                     className="form-control"
-                    value={color}
+                    value={color || ""}
                     onChange={(e) => setColor(e.target.value)}
                   ></input>
                   <span className="text-danger">{validateMsg.color}</span>
@@ -268,7 +271,7 @@ const AddUpdateComponent = () => {
                     placeholder="Enter Sell Price"
                     name="sell-price"
                     className="form-control"
-                    value={sellPrice}
+                    value={sellPrice || ""}
                     onChange={(e) => setSellPrice(e.target.value)}
                   ></input>
                   <span className="text-danger">{validateMsg.sellPrice}</span>
@@ -281,7 +284,7 @@ const AddUpdateComponent = () => {
                     placeholder="Enter Sell Price"
                     name="sell-price"
                     className="form-control"
-                    value={originPrice}
+                    value={originPrice || ""}
                     onChange={(e) => setOriginPrice(e.target.value)}
                   ></input>
                   <span className="text-danger">{validateMsg.originPrice}</span>
@@ -326,7 +329,7 @@ const AddUpdateComponent = () => {
                   <textarea
                     name="description"
                     className="form-control"
-                    value={description}
+                    value={description || ""}
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>

@@ -147,7 +147,9 @@ const TableProduct = () => {
   const renderSearchName = () => {
     return (
       <div className="d-flex justify-content-end align-items-center form-search-name">
-        <label htmlFor="search-input" id="label-search-input">Search By Name</label>
+        <label htmlFor="search-input" id="label-search-input">
+          Search By Name
+        </label>
         <input
           className="form-control"
           id="search-input"
@@ -196,10 +198,20 @@ const TableProduct = () => {
       });
   };
 
+  const showDeleteSuccess = () => {
+    Swal.fire({
+      title: "Thông Báo",
+      text: "Xóa Sản Phẩm Thành Công",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+  };
+
   const deleteProduct = (productId) => {
     service
       .deleteProductById(productId)
       .then((response) => {
+        showDeleteSuccess();
         getAllProducts(currentPage);
       })
       .catch((error) => {
@@ -245,9 +257,9 @@ const TableProduct = () => {
         )}
         <nav className="d-flex justify-content-center">
           <ul className="pagination mt-3">
-            {currentPage + 1 >= totalPage ? showPrevious() : ""}
+            {currentPage === 1 ? !showPrevious() : showPrevious()}
             {renderButtonPage()}
-            {currentPage + 1 <= totalPage ? showNext() : ""}
+            {currentPage >= totalPage ? !showNext() : showNext()}
           </ul>
         </nav>
       </div>

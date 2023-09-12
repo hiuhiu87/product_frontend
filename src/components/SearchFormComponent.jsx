@@ -19,15 +19,12 @@ const SearchForm = () => {
 
   useEffect(() => {
     service.getAllBrands().then((response) => {
-      console.log(response.data);
       setOptionBrands(response.data);
     });
     service.getAllCategory().then((response) => {
-      console.log(response.data);
       setOptionCates(response.data);
     });
     service.getAllStatusType().then((response) => {
-      console.log(response.data);
       setOptionStatus(response.data);
     });
   }, []);
@@ -51,7 +48,6 @@ const SearchForm = () => {
     service
       .getListProductSearch(dataSearch)
       .then((response) => {
-        console.log(response.data);
         const url = `/search-product/`;
         const dataUrl = window.encodeURIComponent(`${JSON.stringify(response.data)}`);
         const finalUrl = url + dataUrl;
