@@ -1,12 +1,16 @@
 import axios from "axios";
 
 // const PRODUCT_BASE_API_URL = "https://springbootdeploy-production.up.railway.app/api/v1";
-const PRODUCT_BASE_API_URL = "http://localhost:8081/api/v1";
+const PRODUCT_BASE_API_URL = "http://localhost:8080/api/v1";
 
 
 class ProductService {
   getAllProducts(pageNumber) {
     return axios.get(PRODUCT_BASE_API_URL + "/getProducts/" + pageNumber);
+  }
+
+  getAllProductsSearch() {
+    return axios.get(PRODUCT_BASE_API_URL + "/getProducts");
   }
 
   createProduct(product) {
@@ -46,7 +50,7 @@ class ProductService {
   }
 
   getListProductSearch(searchData){
-    return axios.post(PRODUCT_BASE_API_URL + "/search", searchData);
+    return axios.post(PRODUCT_BASE_API_URL + "/search", searchData);  
   }
 
 }

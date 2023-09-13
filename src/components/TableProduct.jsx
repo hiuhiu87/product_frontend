@@ -16,6 +16,7 @@ const TableProduct = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { searchData } = useParams();
   const [records, setRecords] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
 
   const showConfirmDelete = (productId) => {
     Swal.fire({
@@ -29,6 +30,11 @@ const TableProduct = () => {
         deleteProduct(productId);
       }
     });
+  };
+
+  const handleReset = () => {
+    setRecords(products);
+    window.location.replace("/product_frontend");
   };
 
   const showPrevious = () => {
@@ -136,12 +142,15 @@ const TableProduct = () => {
 
   const handleFilter = (e) => {
     e.preventDefault();
-    const newData = products.filter((row) => {
+    const newData = allProducts.filter((row) => {
       return row.productName
         .toLowerCase()
         .includes(e.target.value.toLowerCase());
     });
     setRecords(newData);
+    if (e.target.value === "") {
+      setRecords(products);
+    }
   };
 
   const renderSearchName = () => {
@@ -155,10 +164,22 @@ const TableProduct = () => {
           id="search-input"
           type="text"
           onChange={(e) => handleFilter(e)}
+          // onFocus={}
         />
       </div>
     );
   };
+
+  useEffect(() => {
+    service
+      .getAllProductsSearch()
+      .then((response) => {
+        setAllProducts(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     if (searchData !== null && searchData !== undefined) {
@@ -213,6 +234,7 @@ const TableProduct = () => {
       .then((response) => {
         showDeleteSuccess();
         getAllProducts(currentPage);
+        getTotalPages();
       })
       .catch((error) => {
         console.log(error);
@@ -246,9 +268,18 @@ const TableProduct = () => {
     <Fragment>
       <SearchForm />
       <div className="shadow p-3 mb-5 bg-white rounded mt-5">
-        <Link to="/add-product" className="btn btn-primary mb-2">
-          Add Product
-        </Link>
+        <div className="d-flex justify-content-between align-items-center">
+          <Link to="/add-product" className="btn btn-primary mb-2">
+            Add Product
+          </Link>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={handleReset}
+          >
+            <i className="fa fa-refresh"></i> Reset
+          </button>
+        </div>
         {renderSearchName()}
         {isLoading ? (
           <LoadingSpinner />
